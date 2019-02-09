@@ -1,5 +1,7 @@
 package edu.cs.algorithms.service.impl;
 
+import edu.cs.algorithms.model.PrimitiveKeyComparator;
+import edu.cs.algorithms.model.enums.KeyDataTypeEnum;
 import edu.cs.algorithms.service.SortService;
 import edu.cs.algorithms.utility.SortUtility;
 import org.apache.commons.logging.Log;
@@ -23,6 +25,37 @@ public class SortServiceImpl implements SortService {
             return new ArrayList<>();
         }
         return sortedKeys;
+    }
+
+    @Override
+    public List<String> sortListForPrimitiveTypes(String dataType, List<String> inputKeys) {
+
+        // find datatype from predefined enum values
+        KeyDataTypeEnum keyDataType = KeyDataTypeEnum.findDataTypeByDescription(dataType);
+
+        // if the dataType received is not valid one
+        // no need to process further
+        if(keyDataType == null) {
+            return null;
+        }
+
+        switch(keyDataType) {
+            case INTEGER:
+                List<Integer> castedInputKeys = new ArrayList<>();
+                for(String elem : inputKeys) {
+                    castedInputKeys.add(Integer.valueOf(elem));
+                }
+                List<Integer> sortedKeys = SortUtility.insertionSortForPrimitives(castedInputKeys,new PrimitiveKeyComparator<Integer>());
+                List<String> castedSortedKeys = new ArrayList<>();
+                for(Integer elem : sortedKeys) {
+                    castedSortedKeys.add(elem.toString());
+                }
+                return castedSortedKeys;
+            default:
+                logger.error("Unknown primitive type");
+        }
+
+        return new ArrayList<>();
     }
 
 }

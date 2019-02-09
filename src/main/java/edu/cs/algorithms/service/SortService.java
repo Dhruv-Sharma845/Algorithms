@@ -11,4 +11,13 @@ public interface SortService {
      * @return Sorted Keys according to numeric order
      */
     List<Integer> sortIntegers(List<Integer> inputKeys);
+
+    /**
+     * sort the list of keys
+     *
+     * @param dataType
+     * @param inputKeys
+     * @return sorted list according to order of corresponding data type
+     */
+    List<String> sortListForPrimitiveTypes(String dataType, List<String> inputKeys);
 }

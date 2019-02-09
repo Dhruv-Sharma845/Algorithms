@@ -23,4 +23,9 @@ public class SortController {
         return sortService.sortIntegers(inputKeys);
     }
 
+    @PostMapping("/primitive/{data-type}")
+    public List<String> sortListGeneric(@PathVariable("data-type") String dataType, @RequestBody List<String> inputKeys) {
+        return sortService.sortListForPrimitiveTypes(dataType, inputKeys);
+    }
+
 }
